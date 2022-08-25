@@ -1,0 +1,27 @@
+﻿@model RegisterVM
+<form action="" method="post">
+    <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+    <h3>Register</h3>
+    <hr>
+    <div class="col-lg-12">
+        <input asp-for="FullName" placeholder="Full Name" required />
+    </div>
+    <div class="col-lg-12">
+        <input asp-for="Email" placeholder="Enter your Email" required />
+    </div>
+    <div class="col-lg-12">
+        <input asp-for="UserName" placeholder="Enter your UserName" required />
+    </div>
+    <div class="col-lg-12">
+        <input asp-for="Password" placeholder="Enter your Password" required />
+    </div>
+    <div class="col-lg-12">
+        <input asp-for="RepeatYourPassword" placeholder="Repeat your Password" required />>
+    </div>
+
+    <button>Register</button>
+
+</form>
+@section Script{
+    <partial name="_ValidationFormScriptPartial">
+}

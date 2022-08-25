@@ -1,0 +1,113 @@
+﻿<style>
+    .product-detail {
+        border: 1px solid transparent;
+        margin-top: 10px;
+        position: relative;
+        background-color:transparent;
+        padding:0px;
+    }
+
+        .product-detail img {
+            width: 237px;
+            height: 285px;
+            margin-top: 20px;
+        }
+
+        .product-detail .addtocart {
+            visibility: hidden;
+            background: #041b26;
+            margin: 0;
+            padding: 11px 35px;
+            line-height: 1.2;
+            font-size: 18px;
+            font-weight: 500;
+            transition: 0.5s;
+            z-index: 9;
+            overflow: hidden;
+            display: block;
+            outline: none;
+            position: absolute;
+            top: 43%;
+            left: 5%;
+            width: auto;
+            border: 2px solid #cfa86e;
+            border-radius: 0;
+            text-transform: capitalize;
+            text-decoration: none;
+            color: #fff;
+            opacity: 0;
+        }
+
+        .product-detail .imgcart:hover {
+            transition: 0.4s;
+        }
+
+            .product-detail .imgcart:hover .addtocart {
+                opacity: 1;
+                visibility: visible;
+            }
+
+    .product-text {
+        background-color: #041b26;
+        text-align: center;
+        width: 58%;
+    }
+
+        .product-text h4 {
+            color: #f3f3f3;
+            padding-top: 20px;
+        }
+
+        .product-text i {
+            color: #cfa86e;
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+        .product-text span {
+            color: #cfa86e;
+            display: inline-block;
+        }
+    #products {
+        background-color: #030E16;
+        padding: 188px 0;
+    }
+</style>
+
+@model List<Product>
+@{
+    ViewData["Title"] = "Search";
+}
+<div id="products">
+    <div class="container">
+        <div class="row">
+            @foreach (Product product in Model)
+            {
+                @if (!product.IsDeleted)
+                {
+                    <div class="col-lg-4 col-12">
+                        <div class="product-detail">
+                            <div class="imgcart">
+                                <a asp-action="detail" asp-controller="shop" asp-route-pid="@product.Id"><img src="~/assets/img/meals/@product.Image" alt=""></a>
+                                <a asp-controller="Product" asp-action="AddBasket" asp-route-id="@product.Id" class="addtocart">Add to cart</a>
+                            </div>
+                        </div>
+                        <div class="product-text">
+                            <h4>@product.Name</h4>
+                            <span>@product.Price₼</span>
+                            <br>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                            <i class="fa-solid fa-star"></i>
+                        </div>
+                    </div>
+                }
+
+            }
+        </div>
+    </div>
+</div>
+
+

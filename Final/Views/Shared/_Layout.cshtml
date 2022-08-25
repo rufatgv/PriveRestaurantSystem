@@ -1,0 +1,211 @@
+﻿@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@using Microsoft.AspNetCore.Identity;
+@inject UserManager<AppUser> userManager;
+@inject LayoutService layoutService
+@{
+    Setting setting = await layoutService.GetSetting();
+    AppUser appUser = null;
+    if (User.Identity.IsAuthenticated)
+    {
+        appUser = userManager.Users.FirstOrDefault(u => u.UserName == User.Identity.Name && !u.IsAdmin);
+    }
+    List<BasketVM> basketVMs = await layoutService.GetBasket();
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.css">
+    <!-- Font Awesome -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/assets/css/style.css">
+    <link rel="stylesheet" href="~/assets/css/menu.css">
+    <link rel="stylesheet" href="~/assets/css/shop.css">
+
+
+
+</head>
+<body style="overflow-x:hidden;">
+    <!-- <div class="side-menu">
+      <span class="top"></span>
+      <span class="center" id="center"></span>
+      <span class="bottom"></span>
+    </div> -->
+    <header class="header">
+        <div class="all">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <a href=""><img src="~/assets/img/logo/@setting.Logo" alt=""></a>
+                    </div>
+                    <div class="col-lg-8 col-md-2 col-sm-8">
+                        <div class="header-text">
+                            <ul>
+                                <a asp-controller="home" asp-action="index">
+                                <li> Home </li></a>
+                                <a asp-controller="about" asp-action="index">
+                                <li>About Us </li></a>
+                                <a asp-controller="menu" asp-action="index">
+                                <li>Menu </li></a>
+                                <a asp-controller="blog" asp-action="index">
+                                <li>Blog</li></a>
+                                <a asp-controller="shop" asp-action="index">
+                                <li>Shop </li></a>
+                                <a asp-controller="contact" asp-action="index">
+                                <li>Contact Us</li></a>
+                            </ul>
+                            <div class="right-side">
+                                <a href="" class="searchglass"> <i class="fa-solid fa-magnifying-glass"></i></a>
+                                <div class="account">
+                                    <i class="fa-solid fa-user-gear"></i>
+                                    <ul class="sub-menu">
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <li><a asp-controller="Account" asp-action="Profile">@User.Identity.Name</a></li>
+                                            <li><a asp-action="Logout" asp-controller="Account">Sign Out</a></li>
+                                        }
+                                        else
+                                        {
+                                            <li><a asp-action="Login" asp-controller="Account">Login</a></li>
+                                            <li><a asp-action="Register" asp-controller="Account">Register</a></li>
+
+                                        }
+                                        @*<li><a href="account.html">Account</a></li>
+                                            <li><a href="login.html">Login</a></li>
+                                            <li><a href="register.html">Register</a></li>*@
+                                    </ul>
+                                </div>
+                                <a href="" class="basket"><i class="fa-solid fa-cart-shopping"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2">
+                        <div class="booktable">
+                            <a asp-controller="table" asp-action="index" class="booktable-btn">Book A Table</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <div id="phoneheader">
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <a href=""><img src="~/assets/img/logo/@setting.Logo" alt=""></a>
+                </div>
+                <div class="col-2">
+                    <div class="side-menu side-menu-active">
+                        <span class="top"></span>
+                        <span class="center" id="center"></span>
+                        <span class="bottom"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="nav-bar">
+        <div class="nav-barinner">
+            <div class="box1 d-flex">
+                <img src="~/assets/img/logo/@setting.Logo" alt="">
+            </div>
+            <ul>
+                <a asp-controller="home" asp-action="index" class="active-nav-link">
+                <li>Home</li></a>
+                <a asp-controller="about" asp-action="index">
+                <li>About</li></a>
+                <a asp-controller="contact" asp-action="index">
+                <li>Contact</li></a>
+                <a asp-controller="blog" asp-action="index">
+                <li>Blog</li></a>
+                <a asp-controller="shop" asp-action="index">
+                <li>Shop</li></a>
+                <a asp-controller="menu" asp-action="index">
+                <li>Menu</li></a>
+            </ul>
+        </div>
+    </div>
+    @*<div>*@
+    @RenderBody()
+    @*</div>*@
+    <footer>
+        <div class="footer-text">
+            <a href=""> <img src="~/assets/img/logo/@setting.Logo" alt=""></a>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4  col-12 col-md-4">
+                    <h3>Our Address</h3>
+                    <p>@setting.Address</p>
+                    @if (setting.Facebook != null)
+                    {
+                        <a href="@setting.Facebook"><i class="fa-brands fa-facebook"></i></a>
+                    }
+                    @if (setting.Facebook != null)
+                    {
+                        <a href="@setting.Instagram"><i class="fa-brands fa-instagram"></i></a>
+                    }
+                </div>
+
+                <div class="col-lg-4 col-12 col-md-4">
+                    <h3>Order Online</h3>
+                    <p>If you want to book a table, You  <br> can contact with our staff</p>
+                    <span>@setting.Phone</span>
+                </div>
+
+                <div class="col-lg-4 col-12 col-md-4">
+                    <h3>Our Hours</h3>
+                    <p><span>@setting.WorkHours</span></p>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <div class="buttontop">
+        <button class="arrowup" style="background-color:transparent; border:none;">
+            <i class="fa-solid fa-up-long" style="font-size:20px;"></i>
+            <p>TOP</p>
+        </button>
+    </div>
+    <section class="forsearch">
+        <div class="searchinput">
+            <form method="post" enctype="multipart/form-data" id="searchForm" asp-controller="product" asp-action="SearchInput">
+                <input type="search" id="searchBtn" placeholder="Search">
+                <button class="searchbutton"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </form>
+            <div class="markbutton">
+                <i class="fa-solid fa-xmark mark"></i>
+            </div>
+            <div id="productList" class="row">
+
+            </div>
+        </div>
+    </section>
+    <section class="forbasket">
+        @await Html.PartialAsync("_BasketPartial", basketVMs)
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+
+    <script src="~/assets/js/search.js"></script>
+    <script src="~/assets/js/main.js"></script>
+    <script src="~/assets/js/tabmenu.js"></script>
+    <script src="~/assets/js/side-bar.js"></script>
+    <script src="~/assets/js/cart.js"></script>
+    <script src="~/assets/js/vendor.js"></script>
+    <script src="~/assets/js/plugin.js"></script>
+    <script src="~/assets/js/customs.js"></script>
+    @RenderSection("Script", false)
+
+</body>
+</html>

@@ -1,0 +1,83 @@
+﻿@model TableVM
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    .errors {
+        margin: 2em 0.5em 1em;
+        padding: 0.2em 1em;
+        border: 2px solid #00a0d2;
+        border-color: #ffb900;
+        font-size:27px;
+        display:inline-block;
+        margin-bottom:24px;
+    }
+    .succ{
+        margin: 2em 0.5em 1em;
+        padding: 0.2em 1em;
+        border: 2px solid #00a0d2;
+        border-color: #ffb900;
+        font-size: 27px;
+        display: inline-block;
+        margin-bottom: 24px;
+    }
+</style> 
+<section class="about">
+    <div class="about-text">
+        <h1>Book a Table</h1>
+        <a asp-controller="Home" asp-action="Index">Home </a>
+        <i class="fa-solid fa-angle-right"></i>
+        <a asp-controller="Table" asp-action="Index"><span>Book a Table</span></a>
+    </div>
+</section>
+<section class="booking">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 form-text"> 
+                <h3>Book A Table</h3>
+                <div class="tableform">
+                    @await Html.PartialAsync("_TableCreatePartial", Model.Table)
+
+                    @if (TempData.ContainsKey("error"))
+                    {
+                        <span class="errors">@TempData["error"]</span>
+                    }
+                    @if (TempData.ContainsKey("success"))
+                    {
+                        <span class="succ">@TempData["success"]</span>
+                    }
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <h5>Our Contacts</h5>
+                <h2>@Model.Setting.ContactUsTitle</h2>
+                <p>@Html.Raw(Model.Setting.ContactUsDescription)</p>
+                <div class="contactdetails">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p>
+                        We are Here:
+                        <br>
+                        @Html.Raw(Model.Setting.Address)
+                    </p>
+                </div>
+                <div class="contactdetails">
+                    <i class="fa-solid fa-phone"></i>
+                    <p>
+                        Phone Us:
+                        <br>
+                        @Model.Setting.Phone
+                    </p>
+                </div>
+                <div class="contactdetails">
+                    <i class="fa-solid fa-at"></i>
+                    <p>
+                        Mail Us:
+                        <br>
+                        @Model.Setting.Phone
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+

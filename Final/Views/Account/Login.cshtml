@@ -1,0 +1,23 @@
+﻿@model LoginVM
+@{
+    ViewData["Title"] = "Login";
+}
+<section class="about">
+    <div class="about-text">
+        <h1>Login</h1>
+        <a asp-controller="Home" asp-action="Index">Home </a>
+        <i class="fa-solid fa-angle-right"></i>
+        <a asp-controller="Account" asp-action="Login"><span>Login</span></a>
+    </div>
+</section>
+
+<section class="login">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12" style="display:flex;justify-content:center;align-items:center;">
+
+                @await Html.PartialAsync("_LoginFormPartial", Model)
+            </div>
+        </div>
+    </div>
+</section>

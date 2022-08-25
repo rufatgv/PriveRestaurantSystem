@@ -1,0 +1,52 @@
+﻿@model List<Setting>
+@{ int count = 0; }
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Logo</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Email</th>
+                                    <th scope="col">Phone</th>
+                                    <th scope="col">Settings</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (Setting setting in Model)
+                                {
+                                    count++;
+                                <tr>
+                                    <td>
+                                        <img style="width:20%;" src="~/assets/img/logo/@setting.Logo" alt="homepage" class="dark-logo" />
+                                    </td>
+                                    <td>
+                                        @setting.Address
+                                    </td>
+                                    <td>
+                                        @setting.Email
+                                    </td>
+                                    <td>
+                                        @setting.Phone
+                                    </td>
+
+                                    <td>
+                                        <a asp-action="Detail" asp-controller="Setting" asp-area="manage"  class="btn btn-primary">Detail</a>
+                                        <a asp-action="Update" asp-controller="Setting" asp-area="manage"  class="btn btn-warning">Update</a>
+                                    </td>
+                                </tr>
+}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

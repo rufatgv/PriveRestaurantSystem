@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Blog> 
+@foreach (Blog blog in Model)
+{
+      @if (!blog.IsDeleted) 
+   { 
+    <div class="generalblog">
+        <div class="blogimage">
+            <a asp-action="Detail" asp-controller="Blog" asp-route-bid="@blog.Id"> <img src="~/assets/img/blogs/@blog.Image" alt=""></a>
+        </div>
+        <div class="blogcontent">
+            <h4>@blog.Title</h4>
+            <p>@Html.Raw(blog.Description.ToString().Substring(0, 200))...</p>
+            <a asp-action="Detail" asp-controller="Blog" asp-route-bid="@blog.Id">Read More</a>
+        </div>
+    </div>
+    }
+}

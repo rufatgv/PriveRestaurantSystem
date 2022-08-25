@@ -1,0 +1,84 @@
+﻿<style>
+    .generalblog {
+        margin-top: 40px;
+    }
+
+   .generalblog .blogimage {
+            overflow: hidden;
+            width: 324px;
+    }
+
+   .generalblog .blogimage img {
+      width: 324px;
+      height: 249px;
+     transition: 0.4s;
+   }
+
+   .generalblog .blogimage img:hover {
+    transform: scale(1.1);
+   }
+
+   .generalblog .blogcontent {
+      background-color: #041b26;
+      padding: 35px;
+      display: inline-block;
+      width: 78%;
+      border-top: 4px solid #cfa86e;
+   }
+
+   .generalblog .blogcontent h4 {
+     color: #f3f3f3;
+     font-size: 26px;
+     margin: 0 0 15px;
+   }
+
+     .generalblog .blogcontent p {
+      color: #cbcccc;
+      font-size: 18px;
+      margin: 0 0 15px;
+     }
+
+     .generalblog .blogcontent a {
+      text-decoration: none;
+      color: #C2A86E;
+      transition: 0.5s;
+     }
+
+     .generalblog .blogcontent a:hover {
+      color: #f3f3f3;
+     }
+    #products {
+        /*   margin-bottom: 27px;
+        margin-top: 116px;*/
+        padding: 170px;
+        background-color: #031823;
+    }
+</style>
+
+@model List<Blog>
+
+<section id="products">
+    <div class="container">
+        <div class="row">
+            @foreach (Blog blog in Model)
+            {
+                @if (!blog.IsDeleted)
+                {
+                    <div class="col-lg-4">
+                        <div class="generalblog">
+                            <div class="blogimage">
+                                <a asp-action="Detail" asp-controller="Blog" asp-route-bid="@blog.Id"> <img src="~/assets/img/blogs/@blog.Image" alt=""></a>
+                            </div>
+                            <div class="blogcontent">
+                                <h4>@blog.Title</h4>
+                                <p>@Html.Raw(blog.Description.ToString().Substring(0, 70))...</p>
+                                <a asp-action="Detail" asp-controller="Blog" asp-route-bid="@blog.Id">Read More</a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+

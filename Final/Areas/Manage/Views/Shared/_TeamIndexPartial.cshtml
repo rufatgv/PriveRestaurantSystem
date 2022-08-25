@@ -1,0 +1,35 @@
+﻿
+@model IEnumerable<Team>
+@{
+    int count = (ViewBag.PageIndex - 1) * 5;
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+            <th scope="col">Position</th>
+            <th scope="col">Status</th>
+            <th scope="col">Setting</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Team team in Model)
+        {
+            count++;
+        <tr>
+            <th scope="row">@count</th>
+            <td><img style="width:25%" src="~/assets/img/chefs/@team.Image" alt="Alternate Text" /></td>
+            <td>@team.Name</td>
+            <td>@team.Position</td>
+            <td style="color:@(team.IsDeleted ? "red":"green")">@(team.IsDeleted ? "DeActive":"Active")</td>
+            <td>
+
+                <a class="btn btn-warning" asp-action="Update" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex" asp-route-id="@team.Id">Update</a>
+                <a id="@(team.IsDeleted ? "restoreTag":"deleteTag")" class="btn @(team.IsDeleted ? "btn-primary":"btn-danger")" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex" asp-action="@(team.IsDeleted ? "Restore":"Delete")" asp-route-id="@team.Id">@(team.IsDeleted ? "Restore":"Delete")</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

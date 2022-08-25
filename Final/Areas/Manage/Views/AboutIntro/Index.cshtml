@@ -1,0 +1,52 @@
+﻿
+@model List<AboutIntro>
+@{
+    int count = 0;
+}
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+
+                                    <th scope="col">Feature</th>
+                                    <th scope="col">Image</th>
+
+                                    <th scope="col">Setting</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (AboutIntro aboutIntro in Model)
+                                {
+                                    count++;
+                                <tr>
+                                    <td>
+                                        @aboutIntro.Feature
+                                    </td>
+
+                                    <td><img style="width:25%" src="~/assets/img/interier/@aboutIntro.Image" alt="Alternate Text" /></td>
+
+                                    <td>
+                                        <a asp-action="Update" asp-controller="AboutIntro" asp-area="manage" asp-route-id="@aboutIntro.Id" class="btn btn-warning">Update</a>
+                                        <a id="@(aboutIntro.IsDeleted ? "restoreTag":"deleteTag")" class="btn @(aboutIntro.IsDeleted ? "btn-primary":"btn-danger")" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex" asp-action="@aboutIntro.IsDeleted ? " Restore":"Delete")" asp-route-id="@aboutIntro.Id">@(aboutIntro.IsDeleted ? "Restore":"Delete")</a>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 h3 mb-4 text-gray-800">
+                <a asp-controller="AboutIntro" asp-action="Create" asp-area="Manage" class="btn btn-primary">Create</a>
+            </div>
+        </div>
+    </div>
+</div>
+

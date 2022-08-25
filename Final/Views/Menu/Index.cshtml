@@ -1,0 +1,140 @@
+﻿@model IEnumerable<Product>
+<section class="menu">
+    <div class="menu-text">
+        <h1>Our Menu</h1>
+        <a asp-controller="Home" asp-action="Index">Home </a>
+        <i class="fa-solid fa-angle-right"></i>
+        <a asp-controller="Menu" asp-action="Index"><span>Menu</span></a>
+    </div>
+</section>
+<section  class="lunch">
+    <div  data-aos="fade-down-right" class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="lunch-text">
+                    <ul>
+                        @foreach (Product product in Model.Where(p=> p.CategoryId==17).Take(4))
+                        {
+                            <li>
+                                <p>
+                                    @product.Name
+                                    <span>------------------------ @product.Price.ToString("F2")₼</span>
+                                </p>
+                                <h6>@product.Description</h6>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12 col-12">
+                <div class="lunchimage">
+                    <img src="~/assets/img/meals/lunch2.jpg" alt="">
+                    <div class="lunchtext">
+                        <h1>Great Appetizer</h1>
+                        <h3>Our Daily Specials</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section  class="dryaged">
+    <div data-aos="fade-down-left" class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <div class="dryagedimage">
+                    <img src="~/assets/img/meals/dryaged1.jpg" alt="">
+                    <div class="dryagedtext">
+                        <h1>Main Dishes</h1>
+                        <h3>Our Daily Specials</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="dyraged-text">
+                    <ul>
+                        @foreach (Product product in Model.Where(p => p.CategoryId == 2).Take(4))
+                        {
+                            <li>
+                                <p>
+                                    @product.Name
+                                    <span> ---------------------------------------------@product.Price.ToString("F2")₼</span>
+                                </p>
+                                <h6>@product.Description</h6>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section  class="burger">
+    <div data-aos="fade-up-right" class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <div class="burger-text">
+                    <ul>
+                        @foreach (Product product in Model.Where(p => p.CategoryId == 1).Take(4))
+                        {
+                            <li>
+                                <p>
+                                    @product.Name
+                                    <span> --------------------------------@product.Price.ToString("F2")₼</span>
+                                </p>
+                                <h6>@product.Description</h6>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="burgerimage">
+                    <img src="~/assets/img/meals/forburger.jpg" alt="">
+                    <div class="burgertext">
+                        <h1>Great Burgers</h1>
+                        <h3>Our Daily Specials</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section  class="dessert">
+    <div data-aos="fade-down-left" class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <div class="dessertimage">
+                    <img src="~/assets/img/meals/fordessert2.jpg" alt="">
+                    <div class="desserttext">
+                        <h1>Best Dessert</h1>
+                        <h3>Our Daily Specials</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-12">
+                <div class="dessert-text">
+                    <ul>
+                        @foreach (Product product in Model.Where(p => p.CategoryId == 7).Take(4))
+                        {
+                            <li>
+                                <p>
+                                    @product.Name
+                                    <span> -----------------------------------------------@product.Price.ToString("F2")₼</span>
+                                </p>
+                                <h6>@product.Description</h6>
+                            </li>
+                        }
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+

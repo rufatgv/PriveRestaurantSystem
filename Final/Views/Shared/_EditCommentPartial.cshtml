@@ -1,0 +1,9 @@
+﻿@model BlogVM
+@foreach (Review review in Model.Reviews)
+{
+    <div class="user" style="text-align:left; color:white;">
+        <p>@review.Name</p>
+        <p style="color:#CF8D38">@review.CreatedAt</p>
+        <p>@review.Message</p>
+    </div>
+}

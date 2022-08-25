@@ -1,0 +1,43 @@
+﻿@model AboutIntro
+@{  }
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>About Detail</h1>
+            </div>
+        </div>
+        <div class="row justify-content-lg-center">
+            <div class="col-lg-8">
+                <div class="card" style="width: 35rem;margin: 0 auto;">
+                    <div class="text-center">
+                        <img class="card-img-top" style="width: 25rem;" src="~/assets/img/interier/@Model.Image" alt="Card image cap">
+                    </div>
+                   
+                    <ul class="list-group list-group-flush">
+                        
+                        <li class="list-group-item">Feaute : @Model.Feature</li>
+                        <li class="list-group-item">Created at : @Model.CreatedAt</li>
+                        <li class="list-group-item">Last deleted at : @Model.DeletedAt</li>
+                        <li class="list-group-item">Last updated at : @Model.UpdatedAt</li>
+                    </ul>
+                    <div class="card-body">
+                        <a asp-action="Update" asp-controller="aboutintro" asp-area="manage" asp-route-id="@Model.Id" class="btn btn-warning">Update</a>
+
+                        @if (Model.IsDeleted)
+                        {
+            <a asp-action="Restore" asp-controller="aboutintro" asp-area="manage" asp-route-id="@Model.Id" class="btn btn-primary">Restore</a> }
+        else
+        {
+<a asp-action="Delete" asp-controller="aboutintro" asp-area="manage" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>}
+                        <a asp-action="index" asp-controller="aboutintro" asp-area="manage" class="btn btn-primary">Go to list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

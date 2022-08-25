@@ -1,0 +1,35 @@
+﻿
+
+@model IEnumerable<Blog>
+@{
+    int count = (ViewBag.PageIndex - 1) * 5;
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
+            <th scope="col">Title</th>
+
+            <th scope="col">Status</th>
+            <th scope="col">Setting</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Blog blog in Model)
+        {
+            count++;
+        <tr>
+            <th scope="row">@count</th>
+            <td><img style="width:25%" src="~/assets/img/blogs/@blog.Image" alt="Alternate Text" /></td>
+            <td>@blog.Title</td>
+            <td style="color:@(blog.IsDeleted ? "red":"green")">@(blog.IsDeleted ? "DeActive":"Active")</td>
+            <td>
+                <a asp-action="Detail" asp-controller="blog" asp-area="manage" asp-route-id="@blog.Id" class="btn btn-primary">Detail</a>
+                <a class="btn btn-warning" asp-action="Update" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex" asp-route-id="@blog.Id">Update</a>
+                <a id="@(blog.IsDeleted ? "restoreTag":"deleteTag")" class="btn @(blog.IsDeleted ? "btn-primary":"btn-danger")" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex" asp-action="@(blog.IsDeleted ? "Restore":"Delete")" asp-route-id="@blog.Id">@(blog.IsDeleted ? "Restore":"Delete")</a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

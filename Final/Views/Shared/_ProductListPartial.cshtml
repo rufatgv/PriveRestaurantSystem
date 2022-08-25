@@ -1,0 +1,39 @@
+﻿
+<style>
+    a{
+        text-decoration:none;
+        color:#ff6a00;
+    }
+   
+   
+</style>
+
+@model List<Product>
+<div class="container"> 
+    <div class="row">
+        <div class="col-lg-6">
+            <ul id="search-ul" style="position: absolute; left: 1%; background-color: #041821; width: 100%; z-index: 99; top: -13%" class=" mt-3 list-group">
+                @foreach (Product product in Model)
+                {
+                   @if (!product.IsDeleted)
+                    {
+                        <li class="list-group-item" style="background-color: #041821;">
+                            <a href="/restaurant/details/20" class="d-flex align-items-center "> 
+                                <div style="width:30%;">
+                                    <img style="width:80%; border-radius:50%;" src="~/assets/img/meals/@product.Image" />
+                                </div>
+                                <div style="padding-left:5%;">
+                                    <h6 style=" margin:0px; font-family:Arial, Helvetica, sans-serif;">@product.Name</h6>
+
+                                    <p style=" color: gray; margin: 0px;">@product.Price</p>
+                                </div>
+                            </a>
+                        </li>
+                     }
+                 }
+            </ul>
+        </div>
+    </div>
+</div>
+
+

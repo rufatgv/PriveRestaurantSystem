@@ -1,0 +1,81 @@
+﻿@model AboutVM
+<section class="about">
+    <div class="about-text">
+        <h1>About Us</h1>
+        <a asp-controller="home" asp-action="index">Home </a>
+        <i class="fa-solid fa-angle-right"></i>
+        <a asp-controller="about" asp-action="index"> <span>About Us</span></a>
+    </div>
+</section>
+<section class="aboutus">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12">
+                <h5>Fun, Friends, and Food</h5>
+                <i><h3>For Every Special Occasion, <br> There's Prive Steak Gallery</h3></i>
+                @foreach (AboutIntro about in Model.AboutIntros)
+                {
+                    <ul>
+                        <li>@about.Feature</li>
+
+                    </ul>
+                }
+
+            </div>
+            
+                <div class="col-lg-6">
+                    <div class="aboutimage" style="margin-top:99px;">
+                        @foreach (AboutIntro about in Model.AboutIntros)
+                        {
+                            <img src="/assets/img/interier/@about.Image" alt="">
+
+
+
+                        }
+                    </div>
+                    <!-- <img src="/assets/img/interier/prive-steak-gallery.jpg" alt=""> -->
+                </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="mission">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12 col-md-7 imagebox">
+                <img class="img1" src="/assets/img/chefs/breakfast-at-prive-steak.jpg" alt="">
+                <img class="img2" src="/assets/img/chefs/prive-staff.jpg" alt="">
+                <img class="img3" src="/assets/img/meals/pleasure2.jpg" alt="">
+            </div>
+            <div class="col-lg-6 col-md-5">
+                <h3>Our Mission</h3>
+                @foreach (Mission mission in Model.Missions)
+                {
+                    <h5>@Html.Raw(mission.MissionText)</h5>
+                }
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="vision">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 col-12">
+                <h3>Our Vision</h3>
+                @foreach (Vision vision in Model.Visions)
+                {
+                    <span>
+                        "
+                        @Html.Raw(vision.VisionText)
+                        
+                    </span>
+                }
+            </div>
+        </div>
+    </div>
+
+
+</section>

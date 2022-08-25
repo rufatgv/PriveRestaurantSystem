@@ -1,0 +1,52 @@
+﻿@model Blog
+@{ 
+                string tag = string.Join(",", Model.BlogTags.Select(pt => pt.Tag.Name));
+                }
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Blog Detail</h1>
+            </div>
+        </div>
+        <div class="row justify-content-lg-center">
+            <div class="col-lg-8">
+                <div class="card" style="width: 35rem;margin: 0 auto;">
+                    <div class="text-center">
+                        <img class="card-img-top" style="width: 25rem;" src="~/assets/img/blogs/@Model.Image" alt="Card image cap">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@Model.Title</h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+
+
+                        <li class="list-group-item">Tags : @tag</li>
+
+                        <li class="list-group-item">Category : @Model?.Category?.Name</li>
+                        <li class="list-group-item">Created at : @Model.CreatedAt</li>
+                        <li class="list-group-item">Last deleted at : @Model.DeletedAt</li>
+                        <li class="list-group-item">Last updated at : @Model.UpdatedAt</li>
+                        <li class="list-group-item">
+                            Blog  description</br>
+                            <p class="card-text">@Model.Description</p>
+                        </li>
+                    </ul>
+                    <div class="card-body">
+                        <a asp-action="Update" asp-controller="blog" asp-area="manage" asp-route-id="@Model.Id" class="btn btn-warning">Update</a>
+
+                        @if (Model.IsDeleted)
+                        {
+                    <a asp-action="Restore" asp-controller="blog" asp-area="manage" asp-route-id="@Model.Id" class="btn btn-primary">Restore</a> }
+                else
+                {
+                    <a asp-action="Delete" asp-controller="blog" asp-area="manage" asp-route-id="@Model.Id" class="btn btn-danger">Delete</a>}
+                        <a asp-action="index" asp-controller="blog" asp-area="manage" class="btn btn-primary">Go to Blogs list</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

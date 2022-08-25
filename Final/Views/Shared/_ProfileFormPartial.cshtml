@@ -1,0 +1,88 @@
+﻿
+@model MemberUpdateVM
+<div class="account-details-form">
+    <form asp-action="Edit" asp-controller="Account" method="post">
+        <div class="row">
+            <div class="col-lg-6">
+                <div class="single-input-item">
+                    <label asp-for="FullName" class="required"></label>
+                    <input asp-for="FullName" placeholder="FullName" />
+                    <span class="text-danger" asp-validation-for="FullName"></span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="single-input-item">
+                    <label asp-for="UserName" class="required"></label>
+                    <input asp-for="UserName" placeholder="UserName" />
+                    <span class="text-danger" asp-validation-for="UserName"></span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="single-input-item">
+                    <label asp-for="Email" class="required"></label>
+                    <input asp-for="Email" placeholder="Email" />
+                    <span class="text-danger" asp-validation-for="Email"></span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="single-input-item">
+                    <label asp-for="Address" class="required"></label>
+                    <input asp-for="Address" placeholder="Address" />
+                    <span class="text-danger" asp-validation-for="Address"></span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="single-input-item">
+                    <label asp-for="Country" class="required"></label> 
+                    <input asp-for="Country" placeholder="Country" />
+                    <span class="text-danger" asp-validation-for="Country"></span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="single-input-item">
+                    <label asp-for="PhoneNumber" class="required"></label>
+                    <input asp-for="PhoneNumber" placeholder="PhoneNumber" />
+                    <span class="text-danger" asp-validation-for="PhoneNumber"></span>
+                </div>
+            </div>
+            <div class="col-lg-6">
+                <div class="single-input-item">
+                    <label asp-for="ZipCode" class="required"></label>
+                    <input asp-for="ZipCode" placeholder="ZipCode" />
+                    <span class="text-danger" asp-validation-for="ZipCode"></span>
+                </div>
+            </div>
+        </div>
+        <fieldset>
+            <legend>Password change</legend>
+            <div class="single-input-item">
+                <label asp-for="CurrentPassword" class="required"></label>
+                <input asp-for="CurrentPassword" placeholder="CurrentPassword" />
+                <span class="text-danger" asp-validation-for="CurrentPassword"></span>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="single-input-item">
+                        <label asp-for="Password" class="required"></label>
+                        <input asp-for="Password" placeholder="Password" />
+                        <span class="text-danger" asp-validation-for="Password"></span>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="single-input-item">
+                        <label asp-for="ConfirmPassword" class="required"></label>
+                        <input asp-for="ConfirmPassword" placeholder="ConfirmPassword" />
+                        <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        <div class="single-input-item">
+            <button class="check-btn sqr-btn " asp-controller="account" asp-action="edit">Save Changes</button>
+        </div>
+    </form>
+</div>
+@section Script{
+    <partial name="_ValidationFormScriptPartial">
+}
+

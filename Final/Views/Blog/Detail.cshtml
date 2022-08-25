@@ -1,0 +1,154 @@
+﻿@model BlogVM
+@{
+    int count = 0;
+    @foreach (Review review in Model.Reviews)
+    {
+        count += 1;
+    }
+}
+<style>
+    .comm {
+        color: #cfa86e;
+        text-decoration: none;
+        transition: 0.3s ease all;
+        background: transparent;
+        z-index: 1;
+        font-size: 18px;
+        font-weight: 500;
+        font-family: "PT Sans", sans-serif;
+        letter-spacing: 0.5px;
+        line-height: normal;
+        text-transform: capitalize;
+        display: inline-block;
+        text-align: center;
+        padding: 10px 35px;
+        border: 2px solid #cfa86e;
+        border-radius: 0;
+        position: relative;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+        outline: none;
+        margin-bottom: 50px;
+        margin-left: 74px;
+    }
+
+        .comm::before {
+            transition: 0.5s all ease;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            right: 50%;
+            bottom: 0;
+            opacity: 0;
+            content: "";
+            background-color: #cfa86e;
+            z-index: -2;
+            box-sizing: border-box;
+            color: #f3f3f3 !important;
+        }
+
+        .comm:hover {
+            color: #f3f3f3;
+            background: transparent;
+        }
+
+            .comm:hover::before {
+                transition: 0.5s all ease;
+                left: 0;
+                right: 0;
+                opacity: 1;
+                color: #f3f3f3 !important;
+            }
+
+    .user {
+        border: 1px solid #e4e1e3;
+        border-radius: 4px;
+        padding: 1em 1em 0;
+        width: 50%;
+        margin-bottom: 20px;
+        margin-left: 141px;
+    }
+</style>
+
+<section class="blog">
+    <div class="blog-text">
+        <h1>Blog</h1>
+        <a asp-controller="Home" asp-action="Index">Home </a>
+        <i class="fa-solid fa-angle-right"></i>
+        <a asp-controller="Blog" asp-action="Index">Blog</a>
+        <i class="fa-solid fa-angle-right"></i>
+        <span>@Model.Blog.Title</span>
+    </div>
+</section>
+<section class="blog-detail">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="generalblog">
+                    <div class="blogimage">
+                        <img src="~/assets/img/blogs/@Model.Blog.Image" alt="">
+                    </div>
+                    <div class="blogcontent">
+                        <h4>@Model.Blog.Title</h4>
+                        <p>@Html.Raw(Model.Blog.Description)</p>
+                    </div>
+                </div>
+                <div class="blogreview">
+                    @await Html.PartialAsync("_EditCommentPartial",Model)
+                </div>
+               
+
+
+                <div class="comment">
+                    <div class="comment-form">
+
+                        <form id="CommentForm" method="post" enctype="multipart/form-data">
+                            <h5>Leave a Reply</h5>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-lg-12"><input type="text" id="Message" name="Message" placeholder="Write comment"></div>
+                                    <div class="col-lg-12"><button class="comm" data-bid="@Model.Blog.Id" type="submit">Post Comment</button></div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $(document).on("submit", "#CommentForm", function (e) {
+        e.preventDefault();
+        let id = $(".comm").attr("data-bid");
+        let Message = $("#Message").val().trim();
+        let data = document.querySelectorAll("[name]");
+        let token;
+        data.forEach(n => {
+            if (n.getAttribute("name") == "__RequestVerificationToken") {
+                token = n.value;
+            }
+        })
+        fetch("/blog/AddReview?bid=" + id, {
+            method: 'POST', // or 'PUT'
+            headers: {
+                "RequestVerificationToken": $('input:hidden[name="__RequestVerificationToken"]').val(),
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+            body: JSON.stringify(Message),
+        }).then(res => {
+            return res.text();
+        }).then(data => {
+         /*   console.log(data);*/
+            if (data == 0) {
+                window.location = window.location.origin + "/Account/Login";
+                return;
+            }
+            $(".blogreview").append(data);
+           
+        })
+    })
+</script>

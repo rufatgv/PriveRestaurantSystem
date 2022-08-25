@@ -1,0 +1,36 @@
+﻿@model ProductVM
+    <style>
+        .reviewtext{
+            position:relative;
+        }
+        .deletecommentprod {
+            position: absolute;
+            right: 37px;
+            bottom: 20px;
+            text-decoration: none;
+            padding: 6px 20px;
+            border: 2px solid #cfa86e;
+            color: #ff6a00;
+            border-radius: 56%
+        }
+        .icons{
+            margin-bottom:20px;
+        }
+    </style>
+@foreach (Review review in Model.Reviews)
+{
+    <div class="reviewtext">
+        <div class="com">
+            <p>@review.Name <span>@review.CreatedAt</span></p>
+            <h5>@review.Message</h5>
+            <div class="icons" style="color:#FFC107;">
+                @for (int i = 0; i < review.Star; i++)
+                {
+                    <i class="fa-solid fa-star"></i>
+                }
+
+            </div>
+            <a data-id="@review.Id" data-bid="@review.ProductId" class="deletecommentprod">Delete</a>
+        </div>
+    </div>
+}

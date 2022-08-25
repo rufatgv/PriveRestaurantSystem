@@ -1,0 +1,74 @@
+﻿@model Setting
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>Update Setting</h1>
+            </div>
+        </div>
+        <div class="row justify-content-lg-center">
+            <div class="col-lg-8">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label asp-for="LogoImage"></label>
+                        <input class="form-control" asp-for="LogoImage" placeholder="E">
+                        <span class="text-danger" asp-validation-for="LogoImage"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Address"></label>
+                        <input class="form-control" asp-for="Address" placeholder="E">
+                        <span class="text-danger" asp-validation-for="Address"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Email"></label>
+                        <input class="form-control" asp-for="Email" placeholder="E">
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Phone"></label>
+                        <input class="form-control" asp-for="Phone" placeholder="E">
+                        <span class="text-danger" asp-validation-for="Phone"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="WorkHours"></label>
+                        <input class="form-control" asp-for="WorkHours" placeholder="E">
+                        <span class="text-danger" asp-validation-for="WorkHours"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ContactUsDescription"></label>
+                        <input class="form-control" asp-for="ContactUsDescription" placeholder="E">
+                        <span class="text-danger" asp-validation-for="ContactUsDescription"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="ContactUsTitle"></label>
+                        <input class="form-control" asp-for="ContactUsTitle" placeholder="E">
+                        <span class="text-danger" asp-validation-for="ContactUsTitle"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Facebook"></label>
+                        <input class="form-control" asp-for="Facebook" placeholder="E">
+                        <span class="text-danger" asp-validation-for="Facebook"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Instagram"></label>
+                        <input class="form-control" asp-for="Instagram" placeholder="E">
+                        <span class="text-danger" asp-validation-for="Instagram"></span>
+                    </div>
+                    <a asp-action="Update" asp-controller="Setting" class="btn btn-primary">Update</a>
+                </form>
+            </div>
+        </div>
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-primary" asp-action="Index">Go To List</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Script{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+}
+

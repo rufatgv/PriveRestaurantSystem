@@ -1,0 +1,82 @@
+﻿<style>
+
+    .resyyyy {
+        color: #cfa86e;
+        text-decoration: none;
+        transition: 0.3s ease all;
+        background: transparent;
+        z-index: 1;
+        font-size: 18px;
+        font-weight: 500;
+        font-family: "PT Sans", sans-serif;
+        letter-spacing: 0.5px;
+        line-height: normal;
+        text-transform: capitalize;
+        display: inline-block;
+        text-align: center;
+        padding: 10px 35px;
+        border: 2px solid #cfa86e;
+        border-radius: 0;
+        position: relative;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+        outline: none;
+        margin-top:25px;
+    }
+
+        .resyyyy::before {
+            transition: 0.5s all ease;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            right: 50%;
+            bottom: 0;
+            opacity: 0;
+            content: "";
+            background-color: #cfa86e;
+            z-index: -2;
+            box-sizing: border-box;
+        }
+
+        .resyyyy:hover {
+            color: #f3f3f3;
+            background: transparent;
+        }
+
+            .resyyyy:hover::before {
+                transition: 0.5s all ease;
+                left: 0;
+                right: 0;
+                opacity: 1;
+            }
+</style>
+
+@model Contact
+
+<form method="post">
+    <div class="container" >
+        <div class="row">
+            <div class="col-lg-6">
+                <input  class="CName" placeholder="Name">
+            </div>
+            <div class="col-lg-6">
+                <input class="CPhone" placeholder="Phone">
+            </div>
+            <div class="col-lg-6">
+                <input class="CEmail" placeholder="Email">
+            </div>
+            <div class="col-lg-6">
+                <input  class="CMessage form-control2" placeholder="Message">
+            </div>
+            <div class="col-lg-12">
+                <a href="#" class="resyyyy">Send your Message</a>
+            </div>
+        </div>
+    </div>
+</form>
+@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+        $(document).ready(function () {
+        })
+</script>*@
+
+

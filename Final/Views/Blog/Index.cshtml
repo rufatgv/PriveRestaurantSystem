@@ -1,0 +1,141 @@
+﻿@model BlogVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="blog">
+    <div class="blog-text">
+        <h1>Blog</h1>
+        <a asp-controller="Home" asp-action="Index">Home </a>
+        <i class="fa-solid fa-angle-right"></i>
+        <a asp-controller="Blog" asp-action="Index"><span>Blog</span></a>
+    </div>
+</section>
+<section class="aboutblogs">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-sm-12 col-12">
+                <div class="blogs">
+                    @await Html.PartialAsync("_BlogCategoryPartial", Model.Blogs)
+                </div>
+
+
+                <div class="blog-pagination">
+                    <ul class="justify-content-center">
+                        @if (ViewBag.PageIndex > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="index" asp-route-page="1" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid" aria-label="Previous">
+                                    @("<<")
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" asp-action="index" asp-route-page="@(ViewBag.PageIndex-1)" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid" aria-label="Previous">
+                                    @("<")
+                                </a>
+                            </li>
+                            @if (ViewBag.PageIndex == ViewBag.PageCount && ViewBag.PageIndex > 2)
+                            {
+                                <li class="page-item"><a class="page-link" asp-action="index" asp-route-page="@(ViewBag.PageIndex-2)" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid">@(ViewBag.PageIndex-2)</a></li>
+                            }
+                            <li class="page-item"><a class="page-link" asp-action="index" asp-route-page="@(ViewBag.PageIndex-1)" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid">@(ViewBag.PageIndex-1)</a></li>
+                        }
+
+                        <li class="page-item"><a class="page-link" style="background: #030E16; color: white;" asp-action="index" asp-route-page="@ViewBag.PageIndex" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid">@ViewBag.PageIndex</a></li>
+
+                        @if (ViewBag.PageIndex < ViewBag.PageCount)
+                        {
+                            <li class="page-item"><a class="page-link" asp-action="index" asp-route-page="@(ViewBag.PageIndex + 1)" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid">@(ViewBag.PageIndex + 1)</a></li>
+
+                            @if (ViewBag.PageIndex == 1 && (ViewBag.PageIndex + 2) < ViewBag.PageCount)
+                            {
+                                <li class="page-item"><a class="page-link" asp-action="index" asp-route-page="@(ViewBag.PageIndex+2)" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid">@(ViewBag.PageIndex+2)</a></li>
+                            }
+                            <li class="page-item">
+                                <a class="page-link" asp-route-page="@(ViewBag.PageIndex + 1)" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid" aria-label="Next">
+                                    @(">")
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" asp-action="index" asp-route-page="@ViewBag.PageCount" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid" aria-label="Next">
+                                    @(">>")
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-sm-12 col-12">
+                <div class="right">
+                    <form method="get" asp-controller="Blog" asp-action="Search">
+                        <input type="text" name="query" placeholder="Search">
+                        <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                </div>
+                <div class="recent">
+                    <h3>Recent Posts</h3>
+                    @foreach (Blog blog in Model.Blogs.Take(3))
+                    {
+                        <div class="posts">
+                            <img src="~/assets/img/blogs/@blog.Image" alt="">
+                            <h6>@blog.Title</h6>
+                        </div>
+                    }
+
+
+                </div>
+                <div class="blog-categories">
+                    <h3>Categories</h3>
+                    <ul>
+                        @foreach (Category category in Model.Categories)
+                        {
+                            <li><a asp-action="CategoryFilter" asp-controller="Blog" asp-route-id="@category.Id" data-id="@category.Id" class="filterblog" asp-route-page="@ViewBag.PageIndex">@category.Name</a></li>
+                        }
+
+                    </ul>
+                </div>
+                <div class="blog-tags">
+                    <h3>Tags</h3>
+                    <div class="tags-name">
+                        @foreach (Tag tag in Model.Tags)
+                        {
+                            <a asp-action="TagFilter" asp-controller="Blog" asp-route-id="@tag.Id" data-id="@tag.Id" asp-route-tid="@tag.Id" class="filterblogtag"  asp-route-page="@ViewBag.PageIndex">@tag.Name</a>
+                        }
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".filterblog").click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-id");
+            console.log(id)
+            fetch("Blog/CategoryFilter" + "?id=" + id).then(res => {
+                return res.text()
+            }).then(data => {
+                $(".blogs").html(data);
+            })
+        })
+    })
+    $(document).ready(function () {
+        $(".filterblogtag").click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-id");
+            console.log(id)
+            fetch("Blog/TagFilter" + "?id=" + id).then(res => {
+                return res.text()
+            }).then(data => {
+                $(".blogs").html(data);
+            })
+        }) 
+    })
+</script>
+
+

@@ -1,0 +1,36 @@
+﻿
+
+
+@model IEnumerable<Product>
+@{
+    int count = (ViewBag.PageIndex - 1) * 5;
+}
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Image</th>
+            <th scope="col">Name</th>
+
+            <th scope="col">Status</th>
+            <th scope="col">Setting</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Product product in Model)
+        {
+            count++;
+            <tr>
+                <th scope="row">@count</th>
+                <td><img style="width:25%" src="~/assets/img/meals/@product.Image" alt="Alternate Text" /></td>
+                <td>@product.Name</td>
+                <td style="color:@(product.IsDeleted ? "red":"green")">@(product.IsDeleted ? "DeActive":"Active")</td>
+                <td>
+                    <a asp-action="Detail" asp-controller="product" asp-area="manage" asp-route-id="@product.Id" class="btn btn-primary">Detail</a>
+                    <a class="btn btn-warning" asp-action="Update" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex" asp-route-id="@product.Id">Update</a>
+                    <a id="@(product.IsDeleted ? "restoreTag":"deleteTag")" class="btn @(product.IsDeleted ? "btn-primary":"btn-danger")" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex" asp-action="@(product.IsDeleted ? "Restore":"Delete")" asp-route-id="@product.Id">@(product.IsDeleted ? "Restore":"Delete")</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

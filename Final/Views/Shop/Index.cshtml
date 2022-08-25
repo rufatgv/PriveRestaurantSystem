@@ -1,0 +1,257 @@
+﻿<style>
+    .addtocart {
+        color: #cfa86e;
+        text-decoration: none;
+        transition: 0.3s ease all;
+        background: transparent;
+        z-index: 1;
+        font-size: 18px;
+        font-weight: 500;
+        font-family: "PT Sans", sans-serif;
+        letter-spacing: 0.5px;
+        line-height: normal;
+        text-transform: capitalize;
+        display: inline-block;
+        text-align: center;
+        padding: 10px 35px;
+        border: 2px solid #cfa86e;
+        border-radius: 0;
+        position: relative;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.1);
+        outline: none;
+    }
+
+        .addtocart::before {
+            transition: 0.5s all ease;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            right: 50%;
+            bottom: 0;
+            opacity: 0;
+            content: "";
+            background-color: #cfa86e;
+            z-index: -2;
+            box-sizing: border-box;
+        }
+
+        .addtocart:hover {
+            color: #FFF;
+            background: transparent;
+        }
+
+            .addtocart:hover::before {
+                transition: 0.5s all ease;
+                left: 0;
+                right: 0;
+                opacity: 1;
+            }
+
+    .shop .shop-text i {
+        color: #fff;
+        margin-left: 6px;
+        font-size: 20px;
+        margin-right: 6px;
+    }
+</style>
+@model ShopVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="shop">
+    <div class="shop-text">
+        <h1>Shop</h1>
+        <a asp-controller="Home" asp-action="Index">Home </a>
+        <i class="fa-solid fa-angle-right"></i>
+        <a asp-controller="Shop" asp-action="Index"><span>Shop</span></a>
+    </div>
+</section>
+
+<section class="shop-detail">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12">
+                <div class="features">
+                    <p>Showing <span>1–4</span> Of <span>11</span> Results</p>
+
+
+
+
+                    <form id="shopFilter" name="shopFilter">
+                        <input type="hidden" name="cid" value="@ViewBag.cid" />
+                        <input type="hidden" name="tid" value="@ViewBag.tid" />
+                        <select id="shopFilter" name="sortby" onchange="form.submit()">
+                            <option value="">Sort by Relevance</option>
+                            <option value="AZ">Name (A-Z)</option>
+                            <option value="ZA">Name (Z-A)</option>
+                            <option value="LH">Price (Low > High)</option>
+                            <option value="HL">Price (High> Low)</option>
+                        </select>
+                    </form>
+                </div>
+                <div class="row">
+                    <div class="allprod">
+                        @await Html.PartialAsync("_ShopCategoryPartial", Model.Products)
+                    </div>
+                </div>
+                <div class="blog-pagination">
+                    
+                    <ul class="justify-content-center" style="padding-top: 47px;">
+                        @if (ViewBag.PageIndex > 1)
+                        {
+                            <li class="page-item">
+                                <a class="page-link" asp-action="index" asp-route-page="1" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid" aria-label="Previous">
+                                    @("<<")
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" asp-action="index" asp-route-page="@(ViewBag.PageIndex-1)" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid" aria-label="Previous">
+                                    @("<")
+                                </a>
+                            </li>
+                            @if (ViewBag.PageIndex == ViewBag.PageCount && ViewBag.PageIndex > 2)
+                            {
+                                <li class="page-item"><a class="page-link" asp-action="index" asp-route-page="@(ViewBag.PageIndex-2)" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid">@(ViewBag.PageIndex-2) </a></li>
+                            }
+                            <li class="page-item"><a class="page-link" asp-action="index" asp-route-page="@(ViewBag.PageIndex-1)" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid">@(ViewBag.PageIndex-1)</a></li>
+                        }
+
+                        <li class="page-item"><a class="page-link" style="background: #030E16; color: white;" asp-action="index" asp-route-page="@ViewBag.PageIndex" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid">@ViewBag.PageIndex</a></li>
+
+                        @if (ViewBag.PageIndex < ViewBag.PageCount)
+                        {
+                            <li class="page-item"><a class="page-link" asp-action="index" asp-route-page="@(ViewBag.PageIndex + 1)" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid">@(ViewBag.PageIndex + 1)</a></li>
+
+                            @if (ViewBag.PageIndex == 1 && (ViewBag.PageIndex + 2) < ViewBag.PageCount)
+                            {
+                                <li class="page-item"><a class="page-link" asp-action="index" asp-route-page="@(ViewBag.PageIndex+2)" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid">@(ViewBag.PageIndex+2)</a></li>
+                            }
+                            <li class="page-item">
+                                <a class="page-link" asp-route-page="@(ViewBag.PageIndex + 1)" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid" aria-label="Next">
+                                    @(">")
+                                </a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" asp-action="index" asp-route-page="@ViewBag.PageCount" asp-route-cid="@ViewBag.cid" asp-route-tid="@ViewBag.tid" aria-label="Next">
+                                    @(">>")
+                                </a>
+                            </li>
+                        }
+
+                    </ul>
+                </div>
+            </div>
+            <div class="col-lg-4 col-12">
+                <div class="right">
+                    <form method="get" asp-controller="Shop" asp-action="Search">
+                        <input type="text" name="query" placeholder="Search">
+                        <button><i class="fa-solid fa-magnifying-glass"></i></button>
+                    </form>
+                </div>
+                <div class="shop-categories">
+                    <h3>Categories</h3>
+                    <ul>
+                        @foreach (Category category in Model.Categories)
+                        {
+                            <li><a asp-action="CategoryFilter" asp-controller="Shop" asp-route-id="@category.Id" data-id="@category.Id" class="filtercategory">@category.Name</a></li>
+                        }
+
+                    </ul>
+                </div>
+                <div class="shop-tags">
+                    <h3>Tags</h3>
+                    <div class="tags-name">
+
+
+                        @foreach (Tag tag in Model.Tags)
+                        {
+                            <a asp-action="TagFilter" asp-controller="Shop" asp-route-id="@tag.Id" data-id="@tag.Id" class="filtertag">@tag.Name</a>
+                        }
+
+                    </div>
+
+                </div>
+                <div class="recent">
+                    <h3>Top Rated Products</h3>
+                    <div class="posts">
+                        <img src="~/assets/img/meals/quzupirzola.jpg" alt="">
+                        <div class="post-text">
+                            <h6>Stuffed Lamb with Spinach and Pine Nuts Recipe</h6>
+                            <p>$11</p>
+
+                            @*<div class="icons">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>*@
+                        </div>
+
+                    </div>
+                    <div class="posts">
+                        <img src="~/assets/img/meals/dessert.jpg" alt="">
+
+                        <div class="post-text">
+                            <h6>Best Hamburger Patty Recipe</h6>
+                            <p>$11</p>
+
+                            <div class="icons">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="posts">
+                        <img src="~/assets/img/meals/blogburger.jpg" alt="">
+                        <div class="post-text">
+                            <h6>Best Hamburger Patty Recipe</h6>
+                            <p>$11</p>
+
+                            <div class="icons">
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                                <i class="fa-solid fa-star"></i>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".filtercategory").click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-id");
+            console.log(id)
+            fetch("Shop/CategoryFilter" + "?id=" + id).then(res => {
+                return res.text()
+            }).then(data => {
+                $(".allprod").html(data);
+            })
+        })
+    })
+    $(document).ready(function () {
+        $(".filtertag").click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-id");
+            console.log(id)
+            fetch("Shop/TagFilter" + "?id=" + id).then(res => {
+                return res.text()
+            }).then(data => {
+                $(".allprod").html(data);
+            })
+        })
+    })
+</script>
+

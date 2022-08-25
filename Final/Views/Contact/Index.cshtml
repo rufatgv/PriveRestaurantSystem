@@ -1,0 +1,59 @@
+﻿@model ContactVM
+@{
+    ViewData["Title"] = "Index";
+}
+
+<section class="contact">
+    <div class="contact-text">
+        <h1>Contact Us</h1>
+        <a asp-controller="Home" asp-action="Index">Home </a>
+        <i class="fa-solid fa-angle-right"></i>
+        <a asp-controller="Contact" asp-action="Index"><span>Contact Us</span></a>
+    </div>
+</section>
+<section  class="booking">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-5  col-sm-5 form-text">
+                <h3>Contact Us</h3>
+                <div class="contact-form">
+                    @await Html.PartialAsync("_ContatctCreatePartial", Model.Contact)
+                </div>
+                <p class="message" style="opacity:0;">Your message has been sent!</p>
+            </div>
+            <div class="col-lg-6 col-md-7 col-sm-7">
+                <h5>Our Contacts</h5>
+                <h2>@Model.Setting.ContactUsTitle</h2>
+                <p>@Html.Raw(Model.Setting.ContactUsDescription)</p>
+                <div class="contactdetails">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <p>
+                        We are Here:
+                        <br />
+                       @Model.Setting.Address
+                    </p>
+                </div>
+                <div class="contactdetails">
+                    <i class="fa-solid fa-phone"></i>
+                    <p>
+                        Phone Us:
+                        <br>
+                        @Model.Setting.Phone
+                    </p>
+                </div> 
+                <div class="contactdetails">
+                    <i class="fa-solid fa-at"></i>
+                    <p>
+                        Mail Us:
+                        <br>
+                       @Model.Setting.Email
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="map">
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3039.656085411035!2d49.83942181535441!3d40.37214947937041!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40307dafc71aec4f%3A0xd34c420fcbf89177!2sPrive%20Steak%20Gallery%20Baku!5e0!3m2!1sen!2s!4v1652987366732!5m2!1sen!2s" width="1280" height="550" style="border:0;" border-radius="70%" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+</section>
+

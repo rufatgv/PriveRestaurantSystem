@@ -1,0 +1,53 @@
+﻿@model List<HomeIntro>
+@{
+    int count = 0;
+}
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+
+                                    <th scope="col">Intro</th>
+                                    <th scope="col">Title</th>
+                              
+                                    <th scope="col">Setting</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (HomeIntro homeIntro in Model)
+                                {
+                                    count++;
+                                    <tr>
+                                        <td>
+                                            @homeIntro.Intro
+                                        </td>
+
+                                        <td>
+                                            @homeIntro.Title
+                                        </td>
+                                       
+                                        <td>
+                                            <a asp-action="Detail" asp-controller="HomeIntro" asp-area="manage" asp-route-id="@homeIntro.Id" class="btn btn-primary">Detail</a>
+                                            <a asp-action="Update" asp-controller="HomeIntro" asp-area="manage" asp-route-id="@homeIntro.Id" class="btn btn-warning">Update</a>
+                                            <a id="@(homeIntro.IsDeleted ? "restoreTag":"deleteTag")" class="btn @(homeIntro.IsDeleted ? "btn-primary":"btn-danger")" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex" asp-action="@(homeIntro.IsDeleted ? "Restore":"Delete")" asp-route-id="@homeIntro.Id">@(homeIntro.IsDeleted ? "Restore":"Delete")</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 h3 mb-4 text-gray-800">
+                <a asp-controller="HomeIntro" asp-action="Create" asp-area="Manage" class="btn btn-primary">Create</a>
+            </div>
+        </div>
+    </div>
+</div>

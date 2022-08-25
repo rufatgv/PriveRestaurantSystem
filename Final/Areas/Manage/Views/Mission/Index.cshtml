@@ -1,0 +1,54 @@
+﻿
+@model IEnumerable<Mission>
+@{
+    int count = 0;
+}
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+
+                                    <th scope="col">MissionText</th>
+
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Setting</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (Mission mission in Model)
+                                {
+                                    count++;
+                                <tr>
+                                    <td>
+                                        @mission.MissionText.Substring(0, 70)
+                                    </td>
+
+                                    <td style="color:@(mission.IsDeleted ? "red":"green")">@(mission.IsDeleted ? "DeActive":"Active")</td>
+
+                                    <td>
+                                        <a asp-action="Update" asp-controller="Mission" asp-area="manage" asp-route-id="@mission.Id" class="btn btn-warning">Update</a>
+                                        <a id="@(mission.IsDeleted ? "restoreTag":"deleteTag")" class="btn @(mission.IsDeleted ? "btn-primary":"btn-danger")" asp-route-status="@ViewBag.Status" asp-route-page="@ViewBag.PageIndex" asp-action="@mission.IsDeleted ? " Restore":"Delete")" asp-route-id="@mission.Id">@(mission.IsDeleted ? "Restore":"Delete")</a>
+                                    </td>
+                                </tr>
+                                }
+                            </tbody>
+
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2 h3 mb-4 text-gray-800">
+                <a asp-controller="Mission" asp-action="Create" asp-area="Manage" class="btn btn-primary">Create</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

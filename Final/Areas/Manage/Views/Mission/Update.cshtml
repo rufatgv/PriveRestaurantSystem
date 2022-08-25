@@ -1,0 +1,32 @@
+﻿
+
+@model Mission
+@{
+    ViewData["Title"] = "Update";
+}
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 h3 mb-4 text-gray-800">
+                <h4>Mission Update</h4>
+            </div>
+            <div class="col-lg-12 mx-auto">
+                <form method="post" enctype="multipart/form-data">
+
+                    <div class="form-group">
+                        <label asp-for="MissionText"></label>
+                        <textarea class="form-control" asp-for="MissionText" placeholder="Enter Feature"></textarea>
+                        <span class="text-danger" asp-validation-for="MissionText"></span>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

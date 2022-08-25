@@ -1,0 +1,182 @@
+﻿@model HomeVM
+@{
+    ViewData["Title"] = "Index";
+}
+<section class="intro">
+    <div data-aos="fade-left"
+         data-aos-offset="300"
+         data-aos-easing="ease-in-sine" class="all">
+        <div class="container">
+            <div class="row">
+                @foreach (HomeIntro home in Model.HomeIntros)
+                {
+                <div class="col-lg-6 col-12 col-md-6">
+                    <i><h6>@home.Intro</h6></i>
+                    <h1>@Html.Raw(home.Title)</h1>
+                    <h5>@Html.Raw(home.Description)</h5>
+                </div>
+                }
+            </div>
+        </div>
+        <img src="~/assets/img/details/certified.png" alt="">
+    </div>
+</section>
+<section class="feature">
+    <div class="all">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-5 col-12 col-md-5">
+                    <i> <h6>Welcome To Home Of Taste</h6></i>
+                    <h1>A Tasty Food Is What You Deserve</h1>
+                    <ul>
+                        <li><i class="fa-solid fa-check"></i>Only Fresh Food</li>
+                        <li><i class="fa-solid fa-check"></i>Quality Certified</li>
+                        <li><i class="fa-solid fa-check"></i>Best Drinks</li>
+                        <li><i class="fa-solid fa-check"></i>Easy to Order</li>
+                    </ul>
+                </div>
+                <div class="col-lg-7 col-12 col-md-7">
+                    <div data-aos="flip-down" class="imageschef">
+                        <img class="img1" src="/assets/img/chefs/_0014500.jpg" alt="">
+                        <img class="img2" src="/assets/img/meals/_0010056.jpg" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="gallery">
+    <div class="text">
+        <i><h6>Our Gallery</h6></i>
+        <h1>Try Our Special Dishes</h1>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-12 col-12 col-md-12">
+                <div class="images">
+                    @foreach (Product product in Model.Products)
+                    {
+                        <div class="box">
+                            <img src="~/assets/img/meals/@product.Image" alt="">
+                            <div class="overlay"><p>@product.Name</p></div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="navmenu">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="prpodsCat">
+                <ul class="nav-list">
+
+                    @foreach (Category category in ViewBag.Category)
+                    {
+                        @if (!category.IsDeleted)
+                        {
+                            <li class="nav-item">
+                                <a asp-action="CategoryFilter" asp-controller="Home" asp-route-id="@category.Id" data-id="@category.Id" class="filtercategory">
+                                    <img src="~/assets/img/meals/@category.Image" alt="That's an image ">
+                                    <p class="animate__animated animate__flash animate__slower animate__infinite infinite red ">
+                                        @category.Name
+                                    </p>
+                                </a>
+                            </li>
+                        }
+                     }
+                </ul>
+                <div class="prod">
+                    @await Html.PartialAsync("_IndexCategoryPartial", Model.Products)
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="team">
+    <div class="allteam">
+        <div class="team-text">
+            <i><h4>Team of  Restaurant</h4></i>
+            <h1>Meet our Professionals</h1>
+        </div>
+        <div class="container">
+            <div class="row">
+                @foreach (Team team in Model.Teams.Take(3))
+                {
+                    <div @*data-aos="fade-up" data-aos-duration="1000" data-aos-delay="100"*@ class="col-lg-4 col-12 col-md-3 col-sm-3">
+                        <div class="ceo">
+                            <img src="/assets/img/chefs/@team.Image" alt="">
+                            <div class="member-info">
+                                <h4>@team.Name</h4>
+                                <p>@team.Position</p>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</section>
+<section class="video">
+    <iframe src="/assets/img/videos/Privelive (3).mp4" frameborder="0" class="vid"> </iframe>
+</section>
+<section class="booking">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-12 col-md-12 col-sm-12 form-text">
+                <h3>Book A Table</h3>
+                <form method="post" asp-controller="Table" asp-action="TableReservation" asp-route-from="home">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <input id="Name" name="Name" placeholder="Name">
+                                <select id="Person" name="Person"  class="reserve">
+                                    <option value="1">1 Person</option>
+                                    <option value="2">2 Person</option>
+                                    <option value="3">4 Person</option>
+                                    <option value="4">6 Person</option>
+                                </select>
+                                <input id="Date" name="Date" type="date"  placeholder="mm/dd/yy">
+                                <br>
+
+                            </div>
+                            <div class="col-lg-6">
+                                <input id="Phone" name="Phone"  placeholder="Phone">
+                                <input id="Email" name="Email"  placeholder="Email ID">
+
+                            </div>
+                            <div class="col-lg-12">
+                                <button class="res" type="submit">Book Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                @*@await Html.PartialAsync("TableCreatePartial",Model)*@
+            </div>
+            <div class="col-lg-6 col-12 col-md-6 col-sm-6">
+                <img src="/assets/img/interier/_54A5232.jpg" alt="">
+            </div>
+
+        </div>
+    </div>
+</section>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $(".filtercategory").click(function (e) {
+            e.preventDefault();
+            var id = $(this).attr("data-id");
+            console.log(id)
+            fetch("Home/CategoryFilter" + "?id=" + id).then(res => {
+                return res.text()
+            }).then(data => {
+                $(".prod").html(data);
+            })
+        })
+    })
+</script>
+
+
